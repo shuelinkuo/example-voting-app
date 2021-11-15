@@ -1,6 +1,9 @@
 Example Voting App
 =========
 
+
+This is a sample instravote application.
+
 Getting started
 ---------------
 
