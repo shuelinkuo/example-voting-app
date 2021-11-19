@@ -1,20 +1,18 @@
 pipeline {
-	agent any
+	agent {
+		docker{
+			image 'maven:3.6.1-jdk-8-slim'
+			args '-v $HOME/.m2:/root/.m2'
+		}
 
-	tools{
-		maven 'Maven 3.6.1'
 	}
+	
 
 	stages{
-
-
-		stage("build"){
-			when{
-					changeset "**/worker/**"
-				}
+		stage('build'){
 
 			steps{
-				echo 'Compiling worker app'
+				echo 'Building worker app'
 
 				dir('worker'){
 					sh 'mvn compile'
@@ -22,10 +20,7 @@ pipeline {
 			}
 		}
 
-		stage("test"){
-			when{
-					changeset "**/worker/**"
-				}
+		stage('test'){
 
 			steps{
 				echo 'Running Unit Tests on worker app'
@@ -36,17 +31,13 @@ pipeline {
 			}
 		}
 
-		stage("package"){
-			when{
-					branch 'master'
-					changeset "**/worker/**"
-				}
+		stage('package'){
 
 			steps{
-				echo 'Packaging worker app'
+				echo 'Packaging worker app into a jarfile'
 
 				dir('worker'){
-					sh 'mvn package'
+					sh 'mvn package -DskipTests'
 					archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
 				}
 			}
@@ -56,7 +47,7 @@ pipeline {
 	post{
 		always{
 
-			echo 'Build pipeline for worker is completed..'
+			echo 'the job is completed..'
 		}
 	}
 }
