@@ -192,7 +192,7 @@ pipeline {
           docker.withRegistry('https://index.docker.io/v1/', 'DockerHub-ID') {
             def voteImage = docker.build("shirinchen2016/vote:v${env.BUILD_ID}", "./vote")
             voteImage.push()
-            voteImage.push("latest")
+            voteImage.push("${env.BRANCH_NAME}")
           }
         }
 
