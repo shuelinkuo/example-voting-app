@@ -9,7 +9,7 @@ networks:
 
 services:
   vote:
-    image: shirinchen2016/vote:latest
+    image: shirinchen2016/vote:master
     build: ./vote
     ports:
       - 5000:80
