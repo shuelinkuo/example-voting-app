@@ -5,10 +5,10 @@ import socket
 import random
 import json
 
-option_a = os.getenv('OPTION_A', "Rode")
-option_b = os.getenv('OPTION_B', "Shure")
+option_a = os.getenv('OPTION_A', "Travis")
+option_b = os.getenv('OPTION_B', "CircleCI")
 hostname = socket.gethostname()
-version = 'v2'
+version = 'v3'
 
 app = Flask(__name__)
 
